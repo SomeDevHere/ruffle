@@ -35,9 +35,9 @@
     },
     "scripts": {
         "bootstrap": "npm install && lerna bootstrap --hoist",
-        "build": "lerna run build --stream",
-        "buildProduction": "lerna run build --stream -- --mode=production",
-        "build:avm_debug": "lerna run build --stream -- -- --env features=avm_debug",
+        "build": "export NODE_OPTIONS=--max-old-space-size=3072 && lerna run build --stream",
+        "buildProduction": "export NODE_OPTIONS=--max-old-space-size=3072 && lerna run build --stream -- --mode=production",
+        "build:avm_debug": "export NODE_OPTIONS=--max-old-space-size=3072 && lerna run build --stream -- -- --env features=avm_debug",
         "demo": "lerna run --scope ruffle-demo serve --stream",
         "test": "lerna run test --stream",
         "docs": "lerna run docs --stream",

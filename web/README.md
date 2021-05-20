@@ -17,9 +17,9 @@ or as a [browser extension](https://github.com/ruffle-rs/ruffle/wiki/Using-Ruffl
 
 ## How it works
 
-We compile Ruffle down to a Wasm ([WebAssembly](https://webassembly.org/)) binary, which will be loaded
-into web pages either deliberately (installing the selfhosted package onto the website), or injected
-by users as a browser extension.
+We compile Ruffle down to a Wasm ([WebAssembly](https://webassembly.org/)) binary and then into
+javascript, which will be loaded into web pages either deliberately (installing the selfhosted package
+onto the website), or injected by users as a browser extension.
 
 By default we will detect and replace any embedded Flash content on websites with the Ruffle player
 (we call this "polyfilling"), but this can be configured by the website. This means that Ruffle is an
@@ -30,6 +30,8 @@ WebGL is very accurate, hardware-accelerated and very fast, but is not universal
 Additionally, many privacy related browsers or extensions will disable WebGL by default.
 For this reason, we include a fallback using [the canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
 
+This fork was created to run on browsers without WebAssembly and to allow sites with a 
+[Content Security Policy](https://github.com/WebAssembly/content-security-policy/issues/7) that blocks WebAssembly to work.
 ## Building from source
 
 ### Requirements
@@ -59,7 +61,7 @@ This can be installed with `cargo install wasm-bindgen-cli --version 0.2.73`. Be
 
 #### Binaryen
 
-This is optional, used to further optimize the built WebAssembly module.
+This is used to further optimize the built WebAssembly module and turn the module to javascript.
 Some ways to install Binaryen:
 
 -   download one of the [prebuilt releases](https://github.com/WebAssembly/binaryen/releases/)
@@ -68,7 +70,7 @@ Some ways to install Binaryen:
 -   from [Anaconda](https://anaconda.org/conda-forge/binaryen)
 -   [compile it yourself](https://github.com/WebAssembly/binaryen#building)
 
-Just make sure the `wasm-opt` program is in `$PATH`, and that it works.
+Just make sure the `wasm-opt` and `wasm2js` programs are in `$PATH`, and that they work.
 
 ### Building
 
